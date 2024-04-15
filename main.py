@@ -1,7 +1,6 @@
 def main():
     from IcomRadioDetector import IcomRadioDetector
     from RadioController import RadioController
-    from SerialPortFactory import SerialPortFactory
 
     print("Detecting Icom radios...")
     detector = IcomRadioDetector()
@@ -15,7 +14,9 @@ def main():
     for i, port in enumerate(radios, 1):
         print(f"{i}. {port}")
 
-    selected_index = int(input("Enter the index of the Icom radio you want to use: ")) - 1
+    selected_index = (
+        int(input("Enter the index of the Icom radio you want to use: ")) - 1
+    )
     if selected_index < 0 or selected_index >= len(radios):
         print("Invalid index.")
         return
@@ -34,12 +35,13 @@ def main():
             print(f"Received packet data: {received_data}")
 
             more_data = input("Do you want to send more packet data? (y/n): ")
-            if more_data.lower() != 'y':
+            if more_data.lower() != "y":
                 break
     except KeyboardInterrupt:
         print("Exiting...")
     finally:
         radio_controller.close()
+
 
 if __name__ == "__main__":
     main()
